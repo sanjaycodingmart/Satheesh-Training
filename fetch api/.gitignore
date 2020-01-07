@@ -1,2 +1,3 @@
-# Omit config
+#omit git
 config.json
+local.js

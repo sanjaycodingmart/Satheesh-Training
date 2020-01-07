@@ -1,18 +1,4 @@
-(async () => {
-let api = '';
-async function getConstants() {
-    try {
-        const a = await fetch('./config.json');
-        const { key } = await a.json();
-        return key;
-    } catch(e) {
-        console.error(e)
-    }
-
-    return '';
-}
-api = await getConstants();
-
+api=apicall();
 count=0;
 const container=document.querySelector('#container');
 //const api='OOe2zKB3kTo7W86r2X4b4IstCcUq1pHp';
@@ -59,4 +45,4 @@ const container=document.querySelector('#container');
                     }          
             getGif(api_url);
         }
-})()
+
