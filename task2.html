@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .head {
+            border: 1px solid white;
+            line-height: 43px;
+            display: flex  ;   
+            justify-content: space-around;             
+        }
+
+        .mdiv {
+            display: flex;
+            border:1px solid whitesmoke;
+            flex-direction: column;
+        }
+        #button{
+            margin-top: 23px;
+        }
+        #button2{
+            margin-left:17px;
+        }
+        #sub-cont{
+            margin-left: 17px;
+        }
+        #img{
+            width:100px;    
+        }
+        table {
+        border-collapse: collapse;
+        }
+
+        table, th, td {
+        border: 1px solid black;
+        }
+        .divs{
+            display: flex; 
+            flex-direction: row;
+            place-items:center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <form>
+            <h1>Welcome!!!</h1>
+            Name:<input type="text" id="name" class="name"></input>
+            <span id="h1">
+            </span>
+            <br />
+            Description: <textarea rows="4" cols="20" id="des" ></textarea>
+            <span id="h2">
+            </span><br />
+            Image url:<input type="file" placeholder="Image URL" id=image></input><br/>
+            <button type="button" onclick="add()" id="button">Click Me!</button>
+        </form>
+        
+    </div>
+    <div class="mdiv">
+    </div>
+    
+ 
+
+    
+</body>
+<script src="app.js"></script>
+</html>
