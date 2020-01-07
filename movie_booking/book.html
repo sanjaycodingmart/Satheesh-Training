@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Start Booking</title>
+    <link rel="stylesheet" type="text/css" href="book.css">
+
+</head>
+
+<body  onload="boo()">
+    <div class="book-content">
+    <h1>
+        Movie Booking System 
+    </h1>
+    <div class="content">
+        <div>
+            <form class="book">
+                <label name="Theater">Select Theater:</label>
+                <select name="theaters" id="theatername" onchange="Movie();"><option></option>
+                </select><br/>
+
+                <label name="Movie">Select Movie:</label>
+                <select name="movies" id="moviename" ><option></option></select><br/>
+                <button type='button' onclick="ticket()">Ticket Availability</button>
+            </form>
+
+            <div id='create-table'>
+
+            </div>
+            <div>
+                <button type="button" id="submitSelection" onclick="finish();">Confirm Booking</button>
+            </div>
+
+        </div>
+        <div class="notify">
+            <div class="seat">
+                <button style="background-color: green;"></button>
+                <p>Selected seats</p>
+            </div>
+            <div class="seat">
+                <button style="background-color: red;"></button>
+                <p>Reserved seats</p>
+            </div>
+            <div class="seat">
+                <button style="background-color: transparent;"></button>
+                <p>Empty seats</p>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>You are Successfully Booked!!!</p>
+        </div>
+      </div>
+      <div  class="book-img">
+          <img src="offer.jpg">
+      </div>
+      </div>
+</body>
+<script src="app.js"></script>
+
+</html>

@@ -1,0 +1,100 @@
+.book{
+    line-height: 50px;
+}
+.tickets{
+    background-color:"white";
+    display: none;
+}
+.notify{
+    float: right;
+    display: flex;
+    flex-direction: column;
+}
+.seat{
+    display: flex;
+    
+}
+.seat p{
+    margin: 7px;
+}
+.seat button {
+    height: 18px;
+    width: 18px;
+    border: none;
+    margin-right: 9px;
+    margin-top: 7px;
+    border-radius: 50px;
+}
+.content{
+    display: flex;
+    justify-content: space-evenly;
+}
+.home1{
+    background: url("bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+}
+#submitSelection{
+    border: 1px solid black;
+    height: 46px;
+    margin-top: 17px;
+    margin-left: 41px;
+}
+.booked{
+    background-color: red;
+}
+.modal{
+    display: none;
+    width: 40%;
+    margin-left: 86px;
+    margin-top: 19px; 
+    z-index: 1;  
+    overflow: auto;
+    border: 1px solid gray;
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    width: 80%;
+  }
+.close {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+.close:hover,
+.close:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+.feed{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.home{
+    display: flex;
+    flex-direction: column;
+    width: 26%;
+    margin-left: 37%;
+}
+#feed-det{
+    margin-bottom: 10px;
+}
+#img{
+    width: 84%;
+    margin-top: 42px;
+    margin-left: 77px;
+}
+.book-content{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.book-img{
+    margin-top: 30px;
+}
