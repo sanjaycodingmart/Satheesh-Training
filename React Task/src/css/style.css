@@ -1,0 +1,64 @@
+body{
+  background-image: url(./signup1.jpg);
+}
+.home{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.homepage{
+    text-align: center;
+}
+.image div div{
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-evenly;
+  }
+  #img{
+    margin-top: 24px;
+  }
+  #img .middle{
+    opacity: 0;
+  }
+  #search{
+    width: 80%;
+    padding:9px;
+    margin-left: 35px;
+  }
+  #button{
+    height: 37px;
+  }
+  .heading{
+    text-align: center;
+  }
+ .form {
+    line-height: 36px;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+}
+.home1{
+  display: flex;
+  flex-direction: column;
+}
+.name-button{
+  border:none;
+  font-size: x-large;
+  background: none;
+}
+.middle {
+  opacity: 0;
+  position: absolute;
+  width: 30px;
+  bottom: 0;
+  right: 10px;
+}
+
+#img:hover .image {
+  opacity: 0.3;
+}
+
+#img:hover .middle {
+  opacity: 1;
+}
