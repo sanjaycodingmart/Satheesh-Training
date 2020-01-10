@@ -1,0 +1,105 @@
+.insta_icon{
+    width: 110px;
+}
+.nav{
+    display: flex;
+    align-items: center;
+    width: 80%;
+    justify-content: space-between;
+}
+.headNav{
+    display: flex;
+    justify-content: center;
+}
+.search-tag{
+    color: black;
+    width: 200px;
+    border: 1px solid #dbdbdb;
+    padding: 3px 10px 3px 26px;
+}
+.icons{
+    font-size: 27px;
+}
+
+.left{
+    display: flex;
+    width: 170px;
+    align-items: center;
+    justify-content: flex-start;
+}
+.right-icons{
+    display: flex;
+    align-items: center;
+    width: 120px;
+    justify-content: space-between;
+}
+.line{
+    height:20px;
+}
+.down-line{
+ 
+   border-color: #dbdbdb;
+}
+.modal{
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: space-between;
+}
+.main-img{
+    width:100%;
+  
+}
+.main-content{
+    display: flex;
+    justify-content: center;
+}
+.user{
+    display: flex;
+    width:100%;
+    align-items: center;
+    justify-content: space-between;
+}
+.post-nav{
+    display: block;
+    align-items: center;
+    width: 85%;
+    justify-content: space-between;
+    background-color: white;
+}
+.round-img{
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 42px;
+    height: 42px;
+}
+.content{
+    display: flex;
+    justify-content: initial;
+}
+.reverse{
+    display: flex;
+    flex-direction: column-reverse;
+    margin-left: 70px;
+}
+.grid-container{
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+.content p{
+    padding-top: 8px;
+    margin-left: 11px;
+}
+.comment-img{
+    width: 60px;
+    height: 0%;
+}
+.example{
+    text-align: center;
+  /* background: rgba(0, 0, 0, 0.05); */
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 30px 50px;
+  /* margin: 140px 0; */
+}

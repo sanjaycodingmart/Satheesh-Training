@@ -1,0 +1,90 @@
+.signup{
+    margin-top: 8%;
+    display: flex;
+    justify-content: center;
+}
+.left-container{
+  display: inline-block; 
+  background-color: snow;
+  padding: 0px 0px 100px 0px; 
+  position: relative;
+}
+.right-container{
+    width: 350px;
+    background-color: snow;
+}
+.instagram{
+    width: 70%;
+    margin-left: 20px;
+    padding: 0px;
+}
+h3{
+    color: gray;
+    text-align: center;
+}
+.phone_pic{
+    position: absolute;
+    top: 101px; 
+  right: 64px; 
+}
+.phone_pic img{
+    width: 238px;
+}
+.button{
+    background-color: dodgerblue;
+  color: white; 
+  font-weight: 600; 
+  text-align: center; 
+  border-radius: 3px;
+  padding: 2px;
+  margin: 10px;
+}
+.signinbox{
+    border: 1px solid lavender;
+  background-color: white; 
+  float: left; 
+}
+.form{
+    padding: 30px; 
+    width: 300px;
+    background-color: white;
+    font-size: 15px;
+}
+#form-input{
+    width: 100%;
+    border: none;
+    padding: 15px;
+    border-color: grey;
+}
+.sign-up-policy{
+    color: grey;
+}
+.have-account{
+    background-color: white;
+    padding: 30px 40px;
+  border: 1px solid lavender; 
+  text-align: center;
+  float: left; 
+ 
+  margin: 10px 30px;
+}
+#login{
+    color: blue;
+}
+#login-button{
+    border: none;
+    background-color: white;
+    color: blue;
+    font-size: 17px;
+    cursor: pointer;
+}
+.login-page{
+    border: 1px solid lavender;
+    background-color: white; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.instagram1{
+    width:16%;
+}
