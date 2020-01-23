@@ -1,50 +1,24 @@
 import React, { Component } from 'react'
-import {Icon,Spin } from 'antd';
-import './instapage.css';
-
-class Instapage extends Component {
-    state = { 
-        visible: false,
+class Admin extends Component {
+    state={
+        visible:false,
+        loading:false,
         Post_type:'',
         user_post:[],
         usrname:'',
-        loading:false,
         post:[]
-     };
-
-    redirect=()=>{
-            this.props.history.push({
-                pathname:'/login/insta/profile',
-                state:{
-                    usrname:this.props.location.state.Username
-                }
-            });
-    }
+    };
 componentDidMount(){
-        this.setState({
-            loading:true
-        })
-          fetch(`http://localhost:8080/instapage1`)
-            .then(response=>response.json())
-                .then((data)=>{
-                        this.setState({
-                            post:data.rows,
-                            loading:false
-                        });
-                })
-      }
-delete=(e)=>{
-    if(window.confirm('Do you Want really delete this post?')){
-        console.log(e.target.id)
-        fetch('http://localhost:8080/deletepost',{
-          method:'POST',
-          headers:{'Content-Type':'application/json; charset=utf-8'},
-          body:JSON.stringify({id:e.target.id})
-      })
-      window.location.reload();
-    }
-         
-      }
+    this.setState({
+        loading:true
+    })
+    fetch('http://localhost:8080/admin')
+        .then(response=>response.json())
+            .then((data)=>{
+                console.log(data.rows)
+            });
+}
+
     render() {
         return (
             <div>
@@ -84,9 +58,9 @@ delete=(e)=>{
                                     </div>
                                     <div style={{display:"flex"}}>
                                         <Icon type="heart" className='icons' />
-                                    <div>
+                                        {/* <img src="/comment.jpeg" className="comment-img" /> */}
+                                        <div style={{marginRight:"480px"}}>
                                         <Icon type="book" className="icons"/>
-                                        {this.props.location.state.Username=='admin'&& <button id={value.key_column} onClick={this.delete}>delete</button>}
                                         </div>
                                     </div>
                                     <div className="content">
@@ -97,10 +71,10 @@ delete=(e)=>{
                         </div>    
                         ))}
                     </div>
-                </div></Spin></div>
-        </div>
-           
+                </div></Spin>
+                </div>
+            </div>
         )
     }
 }
-export default Instapage;
+export default Admin;

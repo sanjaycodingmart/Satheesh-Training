@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import './signup.css';
 import {Icon} from 'antd'
-import * as firebase from 'firebase';
 class Signup extends Component {
  
     state={
@@ -22,11 +21,18 @@ OnSubmit=()=>{
 var flag=1;
 var a=[];
 var b=[this.state.Mobile,this.state.Name,this.state.Username,this.state.Password];
-const ref=firebase.database().ref("userdetails");
+
+        fetch(`http://localhost:8080/signup?name=${this.state.Name}&mobile=${this.state.Mobile}&username=${this.state.Username}&password=${this.state.Password}`)
+            .then(response => response.json())
+                .then(( data )=> {
+                    console.log(data)
+                })
+
 
 for(let i=0;i<b.length;i++){
     if(b[i]=="")
-    { alert("Please fill the details")
+    { 
+        alert("Please fill the details")
     return ''
     }
 }
@@ -36,7 +42,7 @@ const data={
     Username:this.state.Username,
     Password:this.state.Password
 };  
-console.log(data)
+
  this.state.a.forEach(element => {
    if(element[0]==b[0]){
        flag=0;
@@ -44,13 +50,6 @@ console.log(data)
 
 });
 if(flag){
-    var a2=this.state.a;
-    a2.push(data);
-    this.setState({
-        a:a2
-    })
-    ref.set(this.state.a);
-    alert("Signup Sucessfully ");
     this.props.history.push('/login');
 }
 
@@ -65,18 +64,7 @@ this.setState({
     Password:''
 });
 }
-componentDidMount(){
-    const ref=firebase.database().ref("userdetails");
-    
-    ref.on("value",(data)=>{
-        console.log(data.val())
-        var a1=data.val()
 
-        this.setState({
-            a:a1,
-        })
-    })
-}
 
     render() {
         return (

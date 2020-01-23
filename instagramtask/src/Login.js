@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './signup.css';
 import {Link} from 'react-router-dom'
 import { Button,Icon} from 'antd';
-import * as firebase from "firebase";
 class Login extends Component {
     state={
         Username:'',
@@ -14,50 +13,28 @@ class Login extends Component {
         })  
     }
     Login=()=>{
-        var details=[];
-        var flag=0;
-        const ref=firebase.database().ref("userdetails")
-        ref.on("value",(data)=>{
-            for(let i=0;i<data.val().length;i++){
-                if(data.val()[i].Username==this.state.Username && data.val()[i].Password==this.state.Password){
-                    details=JSON.parse(localStorage.getItem("userdetails"))
-                    var data={
-                        userid:i,
-                        username:data.val()[i].Username
+        fetch(`http://localhost:8080/login?username=${this.state.Username}&password=${this.state.Password}`)
+            .then(response=>response.json())
+                .then((data)=>{
+                    console.log(data)
+                    if(data.status){
+                        this.props.history.push({
+                            pathname:'/login/insta',
+                            state:{
+                                Username:this.state.Username
+                            }
+                        });
                     }
-                    details.push(data);
-                    localStorage.setItem('userdetails',JSON.stringify(details))
-                    flag=1;
-                    break
-                }
-            else
-                flag=0;
-                
-            }
-        })
-            if(flag){
-                console.log("wrd",this.props.history)
-                this.props.history.push({
-                    pathname:'/login/insta',
-                    state:{
-                        Username:this.state.Username
+                    else{
+                        alert("Invalid UserName or Password!!!");
+                        this.setState({
+                            Mobile:'',
+                            Password:''  
+                        });
                     }
-                });
-            }
-            else{
-                alert("Invalid UserName or Password!!!");
-                this.setState({
-                    Mobile:'',
-                    Password:''  
-                });
-            }
-    }
-componentDidMount(){
-    const ref=firebase.database().ref("userdetails")
-    ref.on("value",(data)=>{
-        console.log(data.val())
-    })
-}
+                })
+
+            }      
     
     render() {
         return (
