@@ -50,12 +50,19 @@ h3{
     background-color: white;
     font-size: 15px;
 }
-#form-input{
+
+.form-input1{
     width: 100%;
     border: none;
     padding: 15px;
     border-color: grey;
 }
+/* #form-input{
+    width: 100%;
+    border: none;
+    padding: 15px;
+    border-color: grey;
+} */
 .sign-up-policy{
     color: grey;
 }

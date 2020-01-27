@@ -1,67 +1,64 @@
 import React, { Component } from 'react'
 import './signup.css';
-import {Link} from 'react-router-dom'
-import { Button,Icon} from 'antd';
+import { Link } from 'react-router-dom'
+import { Button, Icon } from 'antd';
+import Axios from 'axios';
 class Login extends Component {
-    state={
-        Username:'',
-        Password:''
+    state = {
+        Username: '',
+        Password: ''
     };
-    onChange=(event)=>{
+    onChange = (event) => {
         this.setState({
-            [event.target.name]:event.target.value
-        })  
+            [event.target.name]: event.target.value
+        })
     }
-    Login=()=>{
-        fetch(`http://localhost:8080/login?username=${this.state.Username}&password=${this.state.Password}`)
-            .then(response=>response.json())
-                .then((data)=>{
-                    console.log(data)
-                    if(data.status){
-                        this.props.history.push({
-                            pathname:'/login/insta',
-                            state:{
-                                Username:this.state.Username
-                            }
-                        });
-                    }
-                    else{
-                        alert("Invalid UserName or Password!!!");
-                        this.setState({
-                            Mobile:'',
-                            Password:''  
-                        });
-                    }
-                })
+    Login = () => {
+        Axios.post('http://localhost:5003/login', {
+                username: this.state.Username,
+                password: this.state.Password
+        }).then((data => {
+            localStorage.setItem('userDetails',data.data.id)
+            if (data.data) {
+                this.props.history.push('/login/insta');
+            }
+            else {
+                alert("Invalid UserName or Password!!!");
+                this.setState({
+                    Username: '',
+                    Password: ''
+                });
+            }
+        }))
 
-            }      
-    
+    }
+
     render() {
         return (
             <div className="login-page">
-           
-                <img src='/instagram_logo.svg.png'className="instagram1" alt='insta'/>
+
+                <img src='/instagram_logo.svg.png' className="instagram1" alt='insta' />
                 <div className="form">
-                        <input type="text" id="form-input" value={this.state.Username}
-                        name="Username" placeholder="Username or Email" onChange={this.onChange}></input>  
-                        <input type="password" id="form-input" value={this.state.Password}
-                        name="Password" placeholder="Password" onChange={this.onChange}></input>  
-                        <div className="button">
-                            <Button onClick={this.Login} >Sign In</Button>
+                    <input type="text" className="form-input1" value={this.state.Username}
+                        name="Username" placeholder="Username or Email" onChange={this.onChange}></input>
+                    <input type="password" className="form-input1" value={this.state.Password}
+                        name="Password" placeholder="Password" onChange={this.onChange}></input>
+                    <div className="button">
+                        <Button onClick={this.Login} >Sign In</Button>
+                    </div>
+                    <h3>OR</h3>
+                    <div className="button">
+                        <Icon type="facebook" />Login with Facebook
                         </div>
-                        <h3>OR</h3>
-                        <div className="button">
-                            <Icon type="facebook" />Login with Facebook
-                        </div>
-                        <div className="have-account">Don't have an account? 
+                    <div className="have-account">Don't have an account?
                                 <Link to="/">
-                                    <button id="login-button">Signup</button>
-                                </Link>
-                        </div> 
+                            <button id="login-button">Signup</button>
+                        </Link>
+                    </div>
                 </div>
-          
-            </div>                
-        
+
+            </div>
+
         )
     }
 }
