@@ -77,6 +77,12 @@
 .content{
     display: flex;
     justify-content: initial;
+    flex-direction: row;
+}
+.content1{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 }
 .reverse{
     display: flex;
@@ -91,15 +97,53 @@
     padding-top: 8px;
     margin-left: 11px;
 }
+.content1 p{
+    margin-top:2px;
+    margin-left: 11px;
+}
+
 .comment-img{
     width: 60px;
     height: 0%;
 }
+.comment{
+    display: flex;
+    justify-content: space-between;
+}
+.comment1{
+    margin-left:15px;
+    display: flex;
+    justify-content: space-between;
+}
+.comment-box{
+    border: none;
+    border-color: #dbdbdb;
+    width: 90%;
+}
+.comment-box1{
+    width: 70%;
+    height: 80%;
+    border: none;
+    border-color: #dbdbdb;
+}
 .example{
     text-align: center;
-  /* background: rgba(0, 0, 0, 0.05); */
   border-radius: 4px;
   margin-bottom: 20px;
   padding: 30px 50px;
-  /* margin: 140px 0; */
+}
+.replycomments{
+    display: flex;
+    margin-left: 30px;
+}
+.replycomments p{
+    margin-left: 10px;
+}
+.replycomment1{
+    display: flex;
+    justify-content: flex-end;
+}
+.reports {
+    display: flex;
+    flex-direction: column-reverse;
 }
