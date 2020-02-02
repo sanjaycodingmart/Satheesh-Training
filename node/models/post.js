@@ -7,8 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     post_type: DataTypes.STRING,
   }, {});
   Post.associate = function(models) {
-    // associations can be defined here
-    Post.belongsTo(models.User)
+    Post.belongsTo(models.User, { onDelete: 'CASCADE' });
+    Post.hasMany(models.Like, { onDelete: 'CASCADE' });
+    Post.hasMany(models.Comment, { onDelete: 'CASCADE' });
+    Post.hasMany(models.Report,{onDelete:'CASCADE'});
   };
   return Post;
 };

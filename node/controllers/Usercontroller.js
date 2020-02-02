@@ -30,6 +30,16 @@ User.getUser = (body) => {
     })
     return response;
 }
+User.getgoogleUser = (username) => {
+    console.log(username)
+    let response = Users.findOne({
+        attributes: ['id'],
+        where: {
+            username
+        }
+    })
+    return response;
+}
 User.getName=(id)=>{
     let response=Users.findOne({
         attributes:['username'],
