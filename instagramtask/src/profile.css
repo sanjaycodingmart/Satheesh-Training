@@ -3,6 +3,8 @@
    display: flex;
    flex-direction: row;
    justify-content: center;
+   padding:0px 50px;
+   width: 60%;
 }
 .photo{
     margin-right: 30px;
@@ -16,19 +18,106 @@
     position: relative;
 }
 .profile1 button{
-border: 0;
-cursor: pointer;
-padding: 0;
-}
-.profile1 img{
-    position: absolute;
-   height: 150px;
-   width: 150px;
-}
-.users1{
-    display: flex;
-    flex-direction: row;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
 }
 .settings1{
     display: flex;
+    width:100%;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: 13px;
+}
+.hide{
+    width: 220px;
+    z-index: 1;
+    height: 50px;
+    background: radial-gradient(#fd5949 ,#d6249f);
+    position: absolute;
+    margin-top: 35px;
+    display: none;
+    padding-left: 10px;
+}
+.profile1 img{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+.users1{
+    display: flex;
+    width:100%;
+    align-items: center;
+    justify-content: space-around;
+}
+.users1 h1{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.post{
+    display: flex;
+    flex-direction: row;
+    margin-top: 13px;
+}
+.delete-icon{
+    display: flex;
+}
+.post h3{
+    margin-bottom: 0em;
+}
+.bolds{
+    font-size: 16px;
+    font-weight: 700;
+}
+.icons1{
+    font-size: 22px;
+}
+#button{
+    align-items: center;
+    height: 70px;
+    width: 70px;
+    border: none;
+    border-radius: 50%;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+#button>i{
+    font-size:28px
+}
+.addbutton{
+    display: flex;
+    padding: 0px 30px 30px 30px;    
+    flex-direction: row;
+    justify-content: center;
+    width: 55%;
+    align-items: center;
+}
+#edit{
+    width: 100px;
+    text-align: center;
+    padding: 0px;
+}
+#button>span{
+    margin-top: 5px;
+    position: absolute;
+    
+}
+.delete-icon img{
+    cursor: pointer;
+}
+#files{
+    display: none;
+}
+
+.uploads div{
+    margin-top: 5px;
+    border:0.2px solid rgb(148, 146, 146) ;
+    padding: 3px;
+    cursor: pointer;
+}
+.delete-image{
+    margin-top: 5px;
+    border:0.2px solid rgb(148, 146, 146) ;
+    padding: 3px;
+    cursor: pointer;
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './signup.css';
 import { Link } from 'react-router-dom'
 import { Button, Icon } from 'antd';
-import Axios from 'axios';
+import Axios from 'axios'
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 class Login extends Component {
@@ -25,6 +25,7 @@ class Login extends Component {
                 .then((data=>{
                     if(data.data){
                         localStorage.setItem('userDetails',data.data.id)
+                        localStorage.setItem('loginTime',Date.now())
                         this.props.history.push('/insta');
                     }
                     else{
@@ -33,7 +34,7 @@ class Login extends Component {
                 }))
             })
         }
-        responseFacebook=(response)=>{
+    responseFacebook=(response)=>{
             var username=response.name
             Axios.get(`http://localhost:5003/googlelogin?username=${username}`)
             .then((data)=>{
@@ -48,12 +49,18 @@ class Login extends Component {
             })
         }
     Login = () => {
+        if(this.state.Username==="" &&this.state.Password===""){
+            alert('please enter the username and password!!!')
+        }
+        else{
         Axios.post('http://localhost:5003/login', {
                 username: this.state.Username,
                 password: this.state.Password
         }).then((data => {
+            console.log(data)
             if (data.data) {
-                localStorage.setItem('userDetails',data.data.id)
+                console.log(data)
+                localStorage.setItem('userDetails',data.data.token)
                 this.props.history.push('/insta');
             }
             else {
@@ -64,6 +71,7 @@ class Login extends Component {
                 });
             }
         }))
+    }
     }
     render() {
         return (
@@ -85,7 +93,7 @@ class Login extends Component {
                                 <button  style={{background:'none',border:'none'}}
                                         onClick={renderProps.onClick} 
                                         disabled={renderProps.disabled}> 
-                                       <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" style={{height:'20px'}}/><span style={{color:'blue',marginLeft:'10px'}}>Login with Google</span>
+                                       <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"alt='img' style={{height:'20px'}}/><span style={{color:'blue',marginLeft:'10px'}}>Login with Google</span>
                                 </button>
                                 )}
                                 buttonText="Login"
@@ -94,15 +102,14 @@ class Login extends Component {
                                 cookiePolicy={'single_host_origin'}
                             />
                     </div>
-                    {/* <div style={{marginLeft:'22px'}}> */}
-                            <FacebookLogin
+                    
+                            {/* <FacebookLogin
                                     appId="610082599778961"
                                     autoLoad={true}
                                     fields="name,email,picture"
-                                    callback={this.responseFacebook}
+                                    onSuccess={this.responseFacebook}
                                     icon={<Icon type="facebook" />}
-                                />
-                        {/* </div> */}
+                                /> */}
                     <div className="have-account">Don't have an account?
                                 <Link to="/">
                             <button id="login-button">Signup</button>

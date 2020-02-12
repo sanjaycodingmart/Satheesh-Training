@@ -36,7 +36,7 @@ class Signup extends Component {
         }).then((data)=>{
             console.log(data)
             if (!data.data.errors) {
-                localStorage.setItem('userDetails',data.data.id)
+                localStorage.setItem('userDetails',data.data.token)
                 this.props.history.push('/insta') 
             }
             else
@@ -92,7 +92,7 @@ class Signup extends Component {
                 console.log(data)
                 if (!data.data.errors) {
                     this.setState({ Name: '', Mobile: '', Username: '', Password: '', Email: '' });
-                    localStorage.setItem('userDetails',data.data.id)
+                    localStorage.setItem('userDetails',data.data.token)
                     this.props.history.push('/insta') 
                 }
                 else
@@ -124,7 +124,7 @@ class Signup extends Component {
                                         <button  style={{background:'none',border:'none'}}
                                                 onClick={renderProps.onClick} 
                                                 disabled={renderProps.disabled}> 
-                                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" style={{height:'20px'}}/>
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt='img' style={{height:'20px'}}/>
                                                 <span style={{color: 'blue',marginLeft:'10px'}}>Login with Google</span>
                                         </button>
                                         )}
