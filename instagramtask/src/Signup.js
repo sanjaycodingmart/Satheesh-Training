@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './signup.css';
-import { Icon } from 'antd'
+import { Icon, message } from 'antd'
 import Axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
@@ -40,7 +40,7 @@ class Signup extends Component {
                 this.props.history.push('/insta') 
             }
             else
-                alert("username already taken")
+                message.error("username already taken")
         })
       }
     responseGoogle = (response) => {
@@ -63,7 +63,7 @@ class Signup extends Component {
                     this.props.history.push('/insta') 
                 }
                 else
-                    alert("username already taken")
+                    message.error("username already taken")
             })
             })
            
@@ -96,10 +96,10 @@ class Signup extends Component {
                     this.props.history.push('/insta') 
                 }
                 else
-                    alert("username already taken")
+                    message.error("username already taken")
             })
         else {
-            alert('Please Fill details')
+            message.error('Please Fill details')
         }
 
     }

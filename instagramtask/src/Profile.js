@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Icon, Button, Modal, Spin, Switch } from 'antd';
+import { Icon, Button, Modal, Spin, Switch ,message} from 'antd';
 // import './instapage.css';
 import './profile.css';
 import Axios from './axios';
 import jwt from 'jsonwebtoken';
-
+import imageCompression from 'browser-image-compression';
 const { confirm } = Modal;
 class Profile extends Component {
     constructor() {
@@ -17,17 +17,25 @@ class Profile extends Component {
             Post_type: '',
             user_post: [],
             username: '',
+            id:'',
             likes: [],
             postLikes: [],
             report: [],
-            comment: '', isClicked: true,
+            comment: '',
+            isClicked: true,
             hide: false,
             toggle: false,
             offset: 0,
             profile: '',
             picture: '',
             pic:false,
-            count:''
+            ulist:false,
+            count:'',
+            search:'',
+            names:[],
+            usernames:[],
+            userfriends:0,
+            button:false
         }
     }
     checklocalstorage = () => {
@@ -60,7 +68,6 @@ class Profile extends Component {
         formData.append('myImage', this.state.image);
         formData.append('Post_type', this.state.Post_type);
         formData.append('content', this.state.content);
-        console.log(formData)
         Axios({
             method: 'POST',
             url: `http://localhost:5003/profile`,
@@ -92,7 +99,7 @@ class Profile extends Component {
             visible: false,
         });
     };
-    handleFile = async (event) => {
+    handleFile = (event) => {
         var file = event.target.files[0];
         // var options = {
         //     maxSizeMB: 2,
@@ -109,16 +116,29 @@ class Profile extends Component {
             image: file
         })
     };
-    handleProfile = (e) => {
+    handleProfile = async(e) => {
         var file = e.target.files[0];
         var size=((file.size/1024)/1024).toFixed(1);
-        console.log('size',size)
-        if(size>1){
-            alert('image size is too long please select the image in Size 1MB ')
-        }else{
+        if(size>5){
+            message.error('image size is too long please select the image in Size 5MB ');
+        }
+        else{
+            // console.log(`file ${file.size / 1024 / 1024}MB`)
+            var options = {
+                maxSizeMB: 2,
+                maxWidthOrHeight: 1920,
+                useWebWorker: true
+            }
+        try {
+            const compressedFile =await  imageCompression(file, options)
+            // console.log(`compressedFile ${compressedFile.size / 1024 / 1024}MB` )
             this.setState({
-                profile: file
+                profile: compressedFile
             }, () => { this.upload(); })
+            
+            }
+        catch (e) { console.log(e) }
+            
         }  
     }
     upload = () => {
@@ -173,12 +193,20 @@ class Profile extends Component {
                     Authorization: `${localStorage.getItem('userDetails')}`
                 }
             })
-            .then((data) => {
+            .then(({data}) => {
+                console.log(data)
+                
                 this.setState({
-                    username: data.data.username,
-                    toggle: data.data.otpEnable,
-                    picture: data.data.profile
+                    username: data[0].username,
+                    id:data[0].id,
+                    toggle: data[0].otpEnable,
+                    picture: data[0].profile,
                 });
+                if(data[0].userfriends){
+                    this.setState({
+                     userfriends:data[0].userfriends.length
+                    }) 
+                 }
             });
     }
     addEventListener = () => {
@@ -238,7 +266,6 @@ class Profile extends Component {
         this.fetchName();
         this.checklocalstorage();
         this.fetchReport();
-        console.log(this.state.user_post)
     }
     count=()=>{
         Axios.get('http://localhost:5003/getcount1',{
@@ -247,6 +274,7 @@ class Profile extends Component {
             }
         }).then(({data})=>{
             console.log(data)
+        },(data)=>{
             this.setState({count:data.count})
         })
     }
@@ -390,7 +418,6 @@ class Profile extends Component {
                     }).then((data) => {
                         console.log(data)
                     }).then(()=>{
-                        // window.location.reload();
                         res()
                     })
                 
@@ -419,6 +446,53 @@ class Profile extends Component {
             pic:!this.state.pic
         })
     }
+    userList= async (event)=>{
+        if(event.target.value!==''){
+            Axios.get(`/username?username=${event.target.value}`)
+            .then(({data})=>{
+                console.log(data)
+               this.setState({
+                   names:data
+               })
+            }).then(()=>{
+                this.setState({
+                    ulist:!false
+                })
+            })
+        }else {
+            this.setState({
+                ulist:false
+            })
+        }
+    }
+    request=(data,index)=>{
+        console.log(data,index)
+        Axios.get(`/request?id=${data}`,{
+            headers: {
+                Authorization: `${localStorage.getItem('userDetails')}`
+            }
+        })
+        .then(data=>{
+            console.log(data)
+            message.success('Request Send Successfully')
+        }).then(()=>{
+            document.getElementById(index.toString()).disabled = true;
+        })   
+    }
+    chat=()=>{
+        this.props.history.push(
+            {
+                pathname:'/chats',
+                state:{
+                    id:this.state.id,
+                    userimage:this.state.picture,
+                    username:this.state.username
+                }
+            })
+    }
+    userFriends=()=>{
+       this.props.history.push('/userfriends')
+   }
     render() {
         return (
             <div>
@@ -431,23 +505,46 @@ class Profile extends Component {
                         </div>
 
                         <div className="middle">
-                            <input type="text" className="search-tag" placeholder="Search" autoCapitalize="none" />
+                            <input type="text" className="search-tag" autoComplete="off" autoCorrect="false" name='search' onChange={this.userList} placeholder="Search" autoCapitalize="none" />
+                            {this.state.ulist&& 
+                                    <div id="myDropdown" className="dropdown-content">
+                                        {this.state.names.map((value,index)=>(
+                                            <div className="friends" key={index}>
+                                                    <div className='profile2'>
+                                                        <img src={value.profile}  alt='img' />
+                                                    </div>
+                                                    <div className="profile3">
+                                                        <h3>{value.username} </h3>
+                                                        {value.mutual&&<h4>{value.mutual.username} is a mutual friend</h4>}
+                                                    </div>
+                                                        <div>
+                                                           <Button id={index} type="primary" onClick={()=>this.request(value.id,index)}>Send Request</Button>   
+                                                       </div>
+                                                </div>
+                                            ))}
+                                    </div>}
                         </div>
                         <div className="right-icons">
                             {this.state.username === 'admin' ? <Icon type="compass" onClick={() => this.info(this.state.report.data)} className='icons' />
                                 : <Icon type='compass' className='icons' />}
-                            <Icon type="heart" twoToneColor="black" className="icons" />
+                               <div>
+                                    <Icon type="heart" twoToneColor="black" className="icons" />
+                                   
+                                </div>
                             <Icon type="user" className="icons" />
                         </div>
                     </div>
 
                 </div>
                 <hr className="down-line" />
+                <div className="friendslist">
+                     <Button type='variant' onClick={this.userFriends}>See All friends({this.state.userfriends})</Button> 
+                </div>
                 <div className="pro1">
                     <div className="photo">
                         <div className="profile1">
                                {this.state.picture ?<div>
-                                    <img src={this.state.picture} title="change profile Picture" alt='img'onClick={this.showfeatures} /> 
+                                    <img class="profilePic" src={this.state.picture} title="change profile Picture" alt='img'onClick={this.showfeatures} /> 
                                         {this.state.pic &&
                                             <div>
                                                 <label for="files" className="uploads">
@@ -488,7 +585,7 @@ class Profile extends Component {
                                 </div>
                             </div>
                             <Icon type="logout" className='icons' data-tooltip="#edit" title="Logout to MyAccount" onClick={this.Logout} />
-
+                            
                         </div>
                         <div className="settings1">
                             <Button color="white" id='edit'>102Posts</Button>
@@ -514,8 +611,12 @@ class Profile extends Component {
                         <h4>cry on Dec 4</h4>
                     </div> */}
                         </div>
+                        <div>
+                            <Button type="primary" title="chat with friends" onClick={this.chat}>Chats</Button>
+                        </div>
+                        
                     </div>
-
+                        
                 </div>
                 <div className='addbutton'>
                     <Button className='addpost' title="Upload the post" id="button" onClick={this.showModal}><Icon type="plus-circle" className='icons1' />Add Post</Button>

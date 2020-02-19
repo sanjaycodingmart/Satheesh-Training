@@ -12,7 +12,7 @@ instance.interceptors.request.use(request=>{
     return Promise.reject(error);
   })
 instance.interceptors.response.use(response=>{
-    console.log(response)
+    // console.log(response)
     if(response.data===401){
         localStorage.removeItem('userDetails')
         window.location.replace('/login ');

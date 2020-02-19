@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Icon, Spin, Modal } from 'antd';
+import { Icon, Spin, Modal, Button, message } from 'antd';
 import './instapage.css';
 import Axios from './axios';
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 const { confirm } = Modal;
 class Instapage extends Component {
     state = {
@@ -19,7 +19,10 @@ class Instapage extends Component {
         isClicked: true,
         otp: false,
         otpmsg: '',
-        offset: 0,count:''
+        offset: 0, count: '',
+        friend: [], accept: [],
+        rlist: false,
+        names: [], length: 0
     };
     checklocalstorage = () => {
         if (!localStorage.length) {
@@ -118,14 +121,26 @@ class Instapage extends Component {
                     Authorization: `${localStorage.getItem('userDetails')}`
                 }
             })
-            .then((data) => {
+            .then(({ data }) => {
                 console.log(data)
-                this.setState({
-                    username: data.data.username
+                var arr;
+                data[0].friendlist !== null ? arr = data[0].friendlist.split(',') : arr = []
+                var arrays = [];
+                console.log(arr)
+                arr.forEach(element => {
+                    if(element) {
+                        this.state.length += 1;
+                        arrays.push(parseInt(element))
+                    }
                 });
-            });
+             this.setState({
+                    username: data[0].username,
+                    friend: arrays,
+                })
+            })
+          
     }
-    componentDidMount() {
+    componentDidMount=async()=> {
         window.addEventListener('scroll', this.addEventListener, false)
         Axios.get('/otpcheck',
             {
@@ -146,25 +161,41 @@ class Instapage extends Component {
         this.setState({
             loading: true
         })
-        this.ref();
-        this.count();
+        this.acceptList();
+        this.getName();
+        
+        // this.count();
         this.checklocalstorage();
         this.fetchReport();
-        this.getName();
+
     }
-    count=()=>{
-        Axios.get('http://localhost:5003/getcount').then(({data})=>{
-            console.log(data)
-            this.setState({count:data.count})
+    // getSocket=()=>{
+    //     console.log('object',this.state.username)
+    //     this.setState({
+    //         socket:io.connect('http://localhost:5003/'+this.state.username)
+    //     })
+        
+    // }
+    count = () => { 
+        Axios.post('http://localhost:5003/getcount',{
+            accept:this.state.accept
+        })
+        .then(({ data }) => {
+            // console.log(data)
+        },(data)=>{
+            this.setState({ count: data.count })
         })
     }
     addEventListener = () => {
         var scroll = document.documentElement.scrollHeight - window.innerHeight;
         if (scroll === window.scrollY) {
             let offset = this.state.offset + 1
-            if(offset*2<this.state.count){
+            if (offset * 2 < this.state.count) {
                 this.setState({ offset })
-                Axios.get(`/instapage?offset=${offset}`,
+                Axios.post('/instapage', {
+                    offset,
+                    acceptlist: this.state.accept
+                },
                     {
                         headers: {
                             Authorization: `${localStorage.getItem('userDetails')}`,
@@ -199,8 +230,32 @@ class Instapage extends Component {
                 })
             })
     }
+    acceptList = () => {
+        Axios.get('/acceptlist', {
+            headers: {
+                Authorization: `${localStorage.getItem('userDetails')}`
+            }
+        }).then(({ data }) => {
+            console.log(data)
+            var arr;
+            data[0].acceptlist !== null ? arr = data[0].acceptlist.split(',') : arr = []
+            var arrays = [];
+            arr.forEach(element => {
+                arrays.push(parseInt(element))
+            });
+            this.setState({
+                accept: arrays
+            }, () => {
+                this.ref();
+                this.count();
+            })
+        })
+    }
     ref() {
-        Axios.get(`/instapage?offset=${this.state.offset}`,
+        Axios.post('/instapage', {
+            offset: this.state.offset,
+            acceptlist: this.state.accept
+        },
             {
                 headers: {
                     Authorization: `${localStorage.getItem('userDetails')}`
@@ -228,7 +283,7 @@ class Instapage extends Component {
             id
         },
             {
-               headers: {
+                headers: {
                     Authorization: `${localStorage.getItem('userDetails')}`
                 }
             }).then((data) => {
@@ -261,15 +316,15 @@ class Instapage extends Component {
         var comment = this.state.comment
         Axios.post('/comment', {
             id, comment
-        },{
+        }, {
             headers: {
-                    Authorization: `${localStorage.getItem('userDetails')}`
-                }
-            }).then((data) => {
-                console.log('response for comment', data)
-                })
+                Authorization: `${localStorage.getItem('userDetails')}`
+            }
+        }).then((data) => {
+            console.log('response for comment', data)
+        })
             .then(() => {
-                    this.ref()
+                this.ref()
             })
     }
     viewComments = () => {
@@ -334,14 +389,42 @@ class Instapage extends Component {
             onCancel() { },
         });
     }
-    remove=(id)=>{
-        console.log('remove',id)
+    remove = (id) => {
+        console.log('remove', id)
         Axios.get(`/remove?id=${id}`)
-            .then(data=>{
+            .then(data => {
                 console.log(data)
             }).then(() => {
                 this.ref()
             })
+    }
+    userList = () => {
+        Axios.get('/requsers')
+            .then(({ data }) => {
+                console.log(data)
+                this.setState({
+                    names: data
+                })
+            }).then(()=>{
+                this.setState({
+                    rlist: !this.state.rlist,
+                })
+                this.ref();
+            })
+       
+    }
+    accept = (data) => {
+        console.log(data)
+        Axios.get(`/accept?id=${data}`, {
+            headers: {
+                Authorization: `${localStorage.getItem('userDetails')}`
+            }
+        })
+            .then(data => {
+                console.log(data)
+                message.success('Request Accept Successfully')
+            })
+        this.acceptList();
     }
     render() {
         return (
@@ -357,13 +440,26 @@ class Instapage extends Component {
                                 </div>
 
                                 <div className="middle">
-                                    <input type="text" className="search-tag" placeholder="Search" autoCapitalize="none" />
-                                </div>
+                                    <input type="text" className="search-tag" autoComplete="off" autoCorrect="false"        placeholder="Search" autoCapitalize="none" />
+                             </div>
                                 <div className="right-icons">
                                     {this.state.username === 'admin' ?
                                         <Icon type="compass" onClick={() => this.info(this.state.report.data)} className='icons' />
                                         : <Icon type='compass' className='icons' />}
-                                    <Icon type="heart" twoToneColor="black" className="icons" />
+                                    <div>
+                                        <a href='#'className='notification'>
+                                            <Icon type="heart" onClick={this.userList} twoToneColor="black" className="icons" />
+                                            {this.state.length !== 0 && <span className='notify'>{this.state.length}</span>}</a>
+                                        {this.state.rlist &&
+                                            <div id="myDropdown" class="dropdown-content1">
+                                                {this.state.names.map((value, index) => (
+                                                    <div key={index}>
+                                                        <h4>{value.username}request to following you</h4>
+                                                        <Button type="primary" onClick={() => this.accept(value.id)}>Accept</Button>
+                                                    </div>
+                                                ))}
+                                            </div>}
+                                    </div>
                                     <Icon type="user" className="icons" title='Go to UserProfile' onClick={this.redirect} />
                                 </div>
                             </div>
@@ -399,14 +495,14 @@ class Instapage extends Component {
                                                     </div>
                                                     <div className='post'>
                                                         <div>
-                                                        {value.Reports.length === 5 ? null : this.state.likes.includes(value.id) ?
-                                                            <img onClick={e => this.downlike(value.id, index)} src="/liked.svg" alt='img' /> :
-                                                            <img onClick={e => this.upLikes(value.id, index)} src="/unliked.svg" alt='img' />}
-                                                             <span className="bolds">{this.state.postLikes[index]}Likes</span>
-                                                       </div>
-                                                       <div className='delete-icon'>
-                                                            {this.state.username === 'admin' && 
-                                                               <Icon type="delete" title='Delete the post 'className='icons'  onClick={()=>this.delete(value.id)}/>
+                                                            {value.Reports.length === 5 ? null : this.state.likes.includes(value.id) ?
+                                                                <img onClick={e => this.downlike(value.id, index)} src="/liked.svg" alt='img' /> :
+                                                                <img onClick={e => this.upLikes(value.id, index)} src="/unliked.svg" alt='img' />}
+                                                            <span className="bolds">{this.state.postLikes[index]}Likes</span>
+                                                        </div>
+                                                        <div className='delete-icon'>
+                                                            {this.state.username === 'admin' &&
+                                                                <Icon type="delete" title='Delete the post ' className='icons' onClick={() => this.delete(value.id)} />
                                                             }
                                                             {value.Reports.length === 5 || this.state.username === 'admin' ? null :
                                                                 <img onClick={() => this.showConfirm(value.id)} title='Report the post' src='/report.svg' alt='img' />
@@ -436,7 +532,7 @@ class Instapage extends Component {
                                                                         </div>
                                                                     </div>
                                                                     <div >
-                                                                        {com.Replycomments.map((value,index) =>
+                                                                        {com.Replycomments.map((value, index) =>
                                                                             <div className='replycomments' key={index}>
                                                                                 <div className='replycomment1'>
                                                                                     <h4>{value.reply}</h4>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './signup.css';
 import { Link } from 'react-router-dom'
-import { Button, Icon } from 'antd';
+import { Button, Icon, message } from 'antd';
 import Axios from 'axios'
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
@@ -29,11 +29,11 @@ class Login extends Component {
                         this.props.history.push('/insta');
                     }
                     else{
-                         alert("Invalid UserName or Password!!!");
+                         message.error("Invalid UserName or Password!!!");
                     }
                 }))
             })
-        }
+    }
     responseFacebook=(response)=>{
             var username=response.name
             Axios.get(`http://localhost:5003/googlelogin?username=${username}`)
@@ -44,13 +44,13 @@ class Login extends Component {
                     this.props.history.push('/insta');
                 }
                 else{
-                     alert("Invalid UserName or Password!!!");
+                     message.error("Invalid UserName or Password!!!");
                 }
             })
-        }
+    }
     Login = () => {
         if(this.state.Username==="" &&this.state.Password===""){
-            alert('please enter the username and password!!!')
+            message.error('please enter the username and password!!!')
         }
         else{
         Axios.post('http://localhost:5003/login', {
@@ -64,7 +64,7 @@ class Login extends Component {
                 this.props.history.push('/insta');
             }
             else {
-                alert("Invalid UserName or Password!!!");
+                message.error("Invalid UserName or Password!!!");
                 this.setState({
                     Username: '',
                     Password: ''

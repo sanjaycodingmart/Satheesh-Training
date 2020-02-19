@@ -15,12 +15,16 @@
 .profile1{
     background-color: #fafafa;
     position: relative;
-    position: relative;
 }
 .profile1 button{
     border: 0;
     cursor: pointer;
     padding: 0;
+}
+.profile1 .profilePic{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
 }
 .settings1{
     display: flex;
@@ -39,11 +43,7 @@
     display: none;
     padding-left: 10px;
 }
-.profile1 img{
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-}
+
 .users1{
     display: flex;
     width:100%;
@@ -121,3 +121,79 @@
     padding: 3px;
     cursor: pointer;
 }
+.friends{
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.profile3{
+    width: 50%;
+}
+  .dropdown-content {
+    display: flex;
+    width: 40%;
+    flex-direction: column;
+    justify-content: space-around;
+    position: absolute;
+    background-color: #f1f1f1;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  } 
+ .button{
+    background-color: dodgerblue;
+ }
+  .dropdown{
+      position: relative;
+  }
+.friendslist{
+    position: relative; 
+    float: right;
+    margin-right: 40px;
+    
+}
+.name-list{
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: #f1f1f1;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    padding-top: 8px;
+    justify-content: space-evenly;
+}
+.profile3 >h3{
+    text-align: start;
+}
+.name-list h3{
+    color: dodgerblue;
+}
+.name-list span{
+    color: black;
+}
+.user-friends{
+    margin: 50px;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+.unfollow span{
+    color: dodgerblue;
+}
+.profile2{
+    background-color: #f1f1f1;
+}
+.profile2 img{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+.dropdown-content1 {
+    display: flex;
+    position: absolute;
+    background-color: #f1f1f1;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  } 
