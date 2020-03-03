@@ -1,0 +1,11 @@
+
+<div class="profile">
+    <img [src]="userProfile && userProfile.profile" alt='img'/>
+    <h3>{{ userProfile && userProfile.username }}</h3>
+    <div>
+        <Button type="primary" (click)="OnlogOut()">Logout</Button>
+    </div>
+    <div>
+        <button mat-flat-button color="primary" (click)="openDialog()">CreateGroup</button>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+.search-tag {
+    margin: 2.5% 1%;
+    box-sizing: border-box;
+    border-radius: 50px;
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    position: relative;
+}
+
+.dropdown-content {
+    display: flex;
+    width: 90%;
+    margin: 0 5%;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    background-color: #f1f1f1;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.friends {
+    padding: 5px 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.friends img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.Chatme button {
+    outline: none;
+    border: none;
+    background: none;
+}
+
+.Chatme button {
+    color: blue;
+}
+
+.Chatme button:hover {
+    color: green;
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+}
+
+.friends1 h3 {
+    margin: 0 1rem;
+    justify-content: center;
+}
+
+.friends1 {
+    margin: .5rem 0;
+    padding: 5px 20px;
+    width: 100%;
+    display: flex;
+    cursor: pointer;
+    flex-direction: row;
+    outline: none;
+    align-items: center;
+}
+
+.friends1:hover {
+    background-color: #fff6;
+}
+
+.friends1 img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+.grpmsg{
+    padding: 8px;
+    background-color: darkslategray;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+/* .user1 h3 {
+    text-align: center;
+    outline: none;
+} */

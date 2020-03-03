@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>New group </h1>
+
+<div mat-dialog-content>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Subject</mat-label>
+    <input matInput placeholder="Type group subject here..." [(ngModel)]="name">
+  </mat-form-field>
+
+  <div style="margin-bottom: 1rem">
+    <div mat-ripple (click)="addToGroup(chat.id)" class="friends1" *ngFor='let chat of chats'>
+      <img [src]="users.includes(chat.id)? 'assets/check_circle-24px.svg' : chat.profile " alt='img' />
+      <h3 [ngStyle]="{'color': users.includes(chat.id) ? '#000': '#696969'}" id={{chat.id}}>{{chat.username}}</h3>
+    </div>
+  </div>
+
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button color="secondary" mat-dialog-close mat-dialog-close='true'>No Thanks</button>
+  <button mat-raised-button color="primary" mat-dialog-close mat-dialog-close='false' (click)="submit()" cdkFocusInitial>Ok</button>
+</div>

@@ -1,0 +1,106 @@
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    justify-items: center;
+}
+.left-container{
+    width: 20%;
+    height: 100vh;
+    background-color: antiquewhite;
+}
+.right-container{
+    height: 100vh;
+    width: 20%;
+    position: relative;
+    background-color: lightgray;
+    overflow: hidden;
+}
+.body{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    padding: 10px;
+}
+.body-nav{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-evenly; */
+    background-color: cyan;
+    height: 10vh;
+} 
+.message-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+    border: 2px solid #d5d5d5;
+}
+.messages{
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 90%;
+} 
+.message {
+    padding: 10px 14px;
+    margin: 10px 30px;
+    border-radius: 9px;
+    width: 20%;
+    position: relative;
+    background-color: #74b9ff;
+    color: #f1f1f1;
+    align-self: flex-end;
+}
+.message1 {
+    padding: 10px 14px;
+    margin: 10px 30px;
+    border-radius: 9px;
+    width: 20%;
+    position: relative;
+    background-color: #74b9ff;
+    color: #f1f1f1;
+    align-self: flex-start;
+}
+.chats{
+    height: 10%;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+.chats input{
+    outline: none;
+    padding: 16px 2px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    width: 85%;
+    height: 10%;
+}
+.chats input:hover{
+    border: 2px solid #456879;
+}
+.chats img{
+    height: 30px;
+    cursor: pointer;
+    background-color: #74b9ff;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 0 .25rem;
+}
+.chats img:hover{
+    background-color: #304D6A;
+}
+.body-nav img{
+    /* border-color: blue; */
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+.grpmsg{
+    background-color: darkslategray;
+    padding: 8px;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}

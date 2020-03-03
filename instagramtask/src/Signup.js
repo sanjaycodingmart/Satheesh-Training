@@ -149,7 +149,7 @@ class Signup extends Component {
                                 <div className="button" onClick={this.OnSubmit}>Sign Up</div>
                                 <p className="sign-up-policy">By signing up, you agree to our Terms, Data Policy and Cookies Policy. </p>
                             </div>
-                            <div style={{marginLeft:'22px'}}>
+                            {/* <div style={{marginLeft:'22px'}}>
                                 <FacebookLogin
                                     appId="610082599778961"
                                     autoLoad={true}
@@ -157,7 +157,7 @@ class Signup extends Component {
                                     callback={this.responseFacebook}
                                     icon={<Icon type="facebook" />}
                                 />
-                            </div>
+                            </div> */}
                             <div className="have-account" >Have an account?
                                 <Link to="/login"><button id="login-button">Log in</button></Link>
                             </div>

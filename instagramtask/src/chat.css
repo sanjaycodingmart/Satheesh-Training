@@ -168,7 +168,9 @@
     width: 85%;
     height: 10%;
 }
-
+.chat-box input:hover{
+    border: 1px solid gray;
+}
 .chat-box img {
     height: 50px;
 }

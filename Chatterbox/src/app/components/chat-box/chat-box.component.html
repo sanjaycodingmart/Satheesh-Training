@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="left-container">
+        <app-userprofile [userProfile]="user"></app-userprofile>
+    </div>
+
+    <div class="body" *ngIf="userId!=undefined && type=='chats' ">
+        <div class="body-nav">
+            <img [src]='userId && userId.profile'>
+            <h2>{{ userId && userId.username}}</h2>
+        </div>
+        <div class="message-body">
+            <div class="messages">
+                <p *ngFor='let chat of messages'
+                    [ngClass]="{'message':chat.senderId==user.id , 'message1': chat.ReceiverId==user.id}">
+                    {{chat.Messages}}</p>
+            </div>
+            <div class="chats">
+                <img src='../../../assets/sentiment_satisfied_alt-24px.svg' />
+                <input type="text" placeholder="Type your message here" autoComplete="off" autoCorrect="false"
+                    name='message' autoCapitalize="none" [(ngModel)]="message"
+                    (keyup)="$event.keyCode == 13 && sendMessage(userId.id,user.id)" />
+                <img src='../../../assets/send-24px.svg' (click)="sendMessage(userId.id,user.id)" alt='img'>
+                <img src='../../../assets/keyboard_voice-24px.svg' alt='img'>
+            </div>
+        </div>
+    </div>
+    <div class="body" *ngIf="type=='groups'">
+        <div class="body-nav">
+            <img class='grpmsg' src='assets/group-24px.svg' alt='img' />
+            <h2>{{this.grpname}}</h2>
+        </div>
+        <div class="message-body">
+            <div class="messages">
+                <div *ngFor='let chat of grpmessages'
+                    [ngClass]="{'message':chat.UserId==user.id, 'message1':chat.UserId!=user.id}">
+                    <div style="display: flex, flex-direction = column;">
+                        <h4  style="color: chocolate;">{{chat.User.username}}</h4>
+                        <p>{{chat.Message}}</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="chats">
+                <img src='../../../assets/sentiment_satisfied_alt-24px.svg' />
+                <input type="text" placeholder="Type your message here" autoComplete="off" autoCorrect="false"
+                    name='message' autoCapitalize="none" [(ngModel)]="message"
+                    (keyup)="$event.keyCode == 13 && sendgrpMessage(user.username,user.id)" />
+                <img src='../../../assets/send-24px.svg' (click)="sendgrpMessage(user.username,user.id)" alt='img'>
+                <img src='../../../assets/keyboard_voice-24px.svg' alt='img'>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="right-container">
+        <app-search-bar></app-search-bar>
+    </div>
+</div>
